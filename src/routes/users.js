@@ -1,9 +1,12 @@
+var fs = require('fs');
 const express = require('express');
 const router = express.Router();
 const admin = require('firebase-admin');
 
+var json_key = JSON.parse(fs.readFileSync(process.env.FIREBASE_SA_PATH, 'utf8'));
+
 admin.initializeApp({
-  credential: admin.credential.cert(require(process.env.FIREBASE_SA_PATH)),
+  credential: admin.credential.cert(json_key),
 });
 
 router.get('/', async (req, res) => {
